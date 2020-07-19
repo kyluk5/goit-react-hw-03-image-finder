@@ -12,7 +12,7 @@ class App extends Component {
     per_page: 12,
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     const key = "17103477-0bea4fbdc73e03f9367b91fb1";
     const baseUrl = "https://pixabay.com/api/?q";
     axios
