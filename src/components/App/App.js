@@ -15,18 +15,21 @@ class App extends Component {
     loading: false,
   };
 
-  async componentDidUpdate() {
-    const baseUrl = "https://pixabay.com/api/?q";
-    await axios
-      .get(
-        `${baseUrl}=${this.state.search}&page=${this.state.page}&key=${process.env.REACT_APP_KEY}&per_page=${this.state.per_page}`
-      )
-      .then((data) => {
-        this.setState({
-          articles: data.data.hits,
-          loading: false,
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.search !== this.state.search) {
+      const { search, page, per_page } = this.state;
+      const baseUrl = "https://pixabay.com/api/?q";
+      await axios
+        .get(
+          `${baseUrl}=${search}&page=${page}&key=${process.env.REACT_APP_KEY}&per_page=${per_page}`
+        )
+        .then((data) => {
+          this.setState({
+            articles: data.data.hits,
+            loading: false,
+          });
         });
-      });
+    }
   }
 
   onSubmit = (e) => {
