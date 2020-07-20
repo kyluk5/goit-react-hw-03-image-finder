@@ -3,7 +3,7 @@ import axios from "axios";
 import Searchbar from "../Searchbar/Searchbar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
-
+import Modal from "../Modal/Modal";
 import "./App.css";
 
 class App extends Component {
@@ -13,6 +13,7 @@ class App extends Component {
     page: 1,
     per_page: 12,
     loading: false,
+    largeImageURL: null,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -31,13 +32,26 @@ class App extends Component {
             articles: [...prev.articles, ...data.data.hits],
             loading: false,
           }));
+          window.scrollBy({
+            top: window.innerHeight,
+            behavior: "smooth",
+          });
         });
     }
   }
 
+  setLargeImage = (url) => {
+    console.dir(url.target.dataset.large);
+    this.setState({
+      largeImageURL: url.target.dataset.large,
+    });
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
     this.setState({
+      page: 1,
+      articles: [],
       search: e.target[1].value,
       loading: true,
     });
@@ -48,8 +62,15 @@ class App extends Component {
     await this.setState({
       page: page + 1,
     });
+
     console.log(this.state.page);
     console.log(this.state.per_page);
+  };
+
+  closeModal = () => {
+    this.setState({
+      largeImageURL: null,
+    });
   };
 
   render() {
@@ -60,7 +81,14 @@ class App extends Component {
         {this.state.loading ? (
           <Loader />
         ) : (
-          <ImageGallery data={articles} loadMore={this.loadMore} />
+          <ImageGallery
+            data={articles}
+            loadMore={this.loadMore}
+            largeImg={this.setLargeImage}
+          />
+        )}
+        {this.state.largeImageURL && (
+          <Modal info={this.state.largeImageURL} closeModal={this.closeModal} />
         )}
       </div>
     );
