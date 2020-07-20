@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Searchbar from "../Searchbar/Searchbar";
 import ImageGallery from "../ImageGallery/ImageGallery";
+import Loader from "../Loader/Loader";
 import "./App.css";
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
     search: "",
     page: 1,
     per_page: 12,
+    loading: false,
   };
 
   componentDidUpdate() {
@@ -20,9 +22,9 @@ class App extends Component {
         `${baseUrl}=${this.state.search}&page=${this.state.page}&key=${key}&per_page=${this.state.per_page}`
       )
       .then((data) => {
-        // console.log(data);
         this.setState({
           articles: data.data.hits,
+          loading: false,
         });
       });
   }
@@ -32,6 +34,7 @@ class App extends Component {
     console.dir(e.target[1].value);
     this.setState({
       search: e.target[1].value,
+      loading: true,
     });
   };
 
@@ -39,7 +42,11 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmit} />
-        <ImageGallery data={this.state.articles} />
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <ImageGallery data={this.state.articles} />
+        )}
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React from "react";
 import "./Searchbar.css";
 
 const Searchbar = ({ onSubmit }) => {
-  // console.log(onSubmit);
   return (
     <header className="Searchbar">
       <form className="SearchForm" onSubmit={onSubmit}>

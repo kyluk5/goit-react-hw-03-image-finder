@@ -2,7 +2,6 @@ import React from "react";
 import "./ImageGalleryItem.css";
 
 const ImageGalleryItem = ({ imageInfo }) => {
-  // console.log(imageInfo);
   return (
     <li className="ImageGalleryItem">
       <img
