@@ -3,9 +3,11 @@ import "./Button.css";
 
 const Button = () => {
   return (
-    <button className="Button" type="button">
-      Load More
-    </button>
+    <div className="load_more">
+      <button className="Button" type="button">
+        Load More
+      </button>
+    </div>
   );
 };
 

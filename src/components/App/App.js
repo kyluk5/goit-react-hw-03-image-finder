@@ -3,7 +3,7 @@ import axios from "axios";
 import Searchbar from "../Searchbar/Searchbar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
-import Button from "../Button/Button";
+
 import "./App.css";
 
 class App extends Component {
@@ -31,7 +31,6 @@ class App extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.dir(e.target[1].value);
     this.setState({
       search: e.target[1].value,
       loading: true,
