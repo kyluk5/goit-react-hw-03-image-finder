@@ -3,6 +3,7 @@ import axios from "axios";
 import Searchbar from "../Searchbar/Searchbar";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import Loader from "../Loader/Loader";
+import Button from "../Button/Button";
 import "./App.css";
 
 class App extends Component {
@@ -14,12 +15,11 @@ class App extends Component {
     loading: false,
   };
 
-  componentDidUpdate() {
-    const key = "17103477-0bea4fbdc73e03f9367b91fb1";
+  async componentDidUpdate() {
     const baseUrl = "https://pixabay.com/api/?q";
-    axios
+    await axios
       .get(
-        `${baseUrl}=${this.state.search}&page=${this.state.page}&key=${key}&per_page=${this.state.per_page}`
+        `${baseUrl}=${this.state.search}&page=${this.state.page}&key=${process.env.REACT_APP_KEY}&per_page=${this.state.per_page}`
       )
       .then((data) => {
         this.setState({
