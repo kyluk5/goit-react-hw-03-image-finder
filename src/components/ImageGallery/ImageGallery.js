@@ -3,7 +3,7 @@ import ImageGalleryItems from "../ImageGalleryItem/ImageGalleryItem";
 import Button from "../Button/Button";
 import "./ImageGallery.css";
 
-const ImageGallery = ({ data }) => {
+const ImageGallery = ({ data, loadMore }) => {
   console.log(data);
   return (
     <>
@@ -12,7 +12,9 @@ const ImageGallery = ({ data }) => {
           <ImageGalleryItems key={item.id} imageInfo={item} />
         ))}
       </ul>
-      <div className="load_more">{data.length !== 0 && <Button />}</div>
+      <div className="load_more">
+        {data.length !== 0 && <Button loadMore={loadMore} />}
+      </div>
     </>
   );
 };
